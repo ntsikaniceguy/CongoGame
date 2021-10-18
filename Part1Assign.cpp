@@ -56,7 +56,11 @@ class Piece{
 bool my_cmp(const Piece& a, const Piece& b)
 {
     // smallest comes first
-    return a.position.at(0) < b.position.at(0);
+    if(a.position.at(0) == b.position.at(0)){
+        return a.position.at(1) < b.position.at(1);
+    }
+
+    return (int)a.position.at(0) < (int)b.position.at(0);
 }
 
 // class pieceCompare {
@@ -245,6 +249,7 @@ void output(vector<Piece> all_pieces){
 
     cout << "white pawn: ";
 
+    
     sort(w_pawns.begin(), w_pawns.end(), my_cmp);
     for(int i = 0; i < w_pawns.size(); i++){
         cout << w_pawns.at(i).getPos() << " ";
@@ -484,12 +489,14 @@ int main(){
         output(ieces);
         cout << endl;
         if(list_fen.at(i+1) == "w"){
-            cout << "side to play: " << "white" << endl;
+            cout << "side to play: white" << endl;
         }
+
         else if(list_fen.at(i+1) == "b"){
-            cout << "side to play: " << "black" << endl;
+            cout << "side to play: black" << endl;
 
         }
+
         cout << endl;
         ieces.clear();
         
