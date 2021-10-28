@@ -115,40 +115,11 @@ vector<vector<char>> makeBoard(vector<string> boardSetup){
 
 }
 
-vector<int> getPosition(vector<vector<char> > board, char piece){
-
-    vector<int> coOrdinates;
-    for(int row = 0; row < 7; row++){
-        for(int col = 0; col < 7; col++){
-          //  cout << "row: " << row << "\t col:" << col << "\t piece: " << board[row][col] << endl;
-
-            if(board[row][col] == piece){
-                coOrdinates.push_back(row);
-                coOrdinates.push_back(col);
-                return coOrdinates;
-            }
-        }
-    }
-
-    return coOrdinates;
-
-}
-
-vector<string> possibleElephantMoves(vector<vector<char>> board, char z){
+vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row, int col){
 
     vector<string> column = {"a", "b", "c", "d", "e", "f", "g"};
     vector<int> rank = {7, 6, 5, 4, 3, 2, 1};
     vector<string> possibleMoves;
-
-    vector<int> position = getPosition(board, z);
-    
-    if(position.size() == 0){
-        return possibleMoves;
-    }
-
-
-    int row = position.at(0);
-    int col = position.at(1);
 
 
     string ourColour;
@@ -156,11 +127,253 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char z){
 
     string boardPosition = column.at(col) + to_string(rank.at(row)); 
 
-    
-    
+    //case 1: up or up up:
+    if(row > 0){
 
+        //sub case 1: up
+
+        //check if piece is occupied:
+        if(board[row-1][col] == '0'){
+            //not occupied so we can move there
+            string up = column[col] + to_string(rank[row-1]);
+            string possibleMove = boardPosition + up;
+            possibleMoves.push_back(possibleMove);
+        }
+
+        else{
+            //check if the piece is opponent:
+            char abovePiece = board[row-1][col];
+
+            bool ourColour = isupper(e);
+            bool otherColour = isupper(abovePiece);
+
+            if(ourColour ^ otherColour){
+                //we can move there
+                string up = column[col] + to_string(rank[row-1]);
+                string possibleMove = boardPosition + up;
+                possibleMoves.push_back(possibleMove);
+            }
+        }
+
+        //sub case 2: up up:
+        if(row > 1){
+
+            //check if piece is occupied:
+            if(board[row-2][col] == '0'){
+                //not occupied so we can move there
+                string upUp = column[col] + to_string(rank[row-2]);
+                string possibleMove = boardPosition + upUp;
+                possibleMoves.push_back(possibleMove);
+            }
+
+            else{
+                //check if the piece is opponent:
+                char abovePiece = board[row-2][col];
+
+                bool ourColour = isupper(e);
+                bool otherColour = isupper(abovePiece);
+
+                if(ourColour ^ otherColour){
+                    //we can move there
+                    string up = column[col] + to_string(rank[row-2]);
+                    string possibleMove = boardPosition + up;
+                    possibleMoves.push_back(possibleMove);
+                }
+            }
+        }
+    }
+
+    //case 2: down or down down
+    if(row < 6){
+
+         //sub case 1: down
+
+        //check if piece is occupied:
+        if(board[row+1][col] == '0'){
+            //not occupied so we can move there
+            string up = column[col] + to_string(rank[row+1]);
+            string possibleMove = boardPosition + up;
+            possibleMoves.push_back(possibleMove);
+        }
+
+        else{
+            //check if the piece is opponent:
+            char belowPiece = board[row+1][col];
+
+            bool ourColour = isupper(e);
+            bool otherColour = isupper(belowPiece);
+
+            if(ourColour ^ otherColour){
+                //we can move there
+                string down = column[col] + to_string(rank[row+1]);
+                string possibleMove = boardPosition + down;
+                possibleMoves.push_back(possibleMove);
+            }
+        }
+
+        //sub case 2: down down:
+        if(row < 5){
+
+            //check if piece is occupied:
+            if(board[row+2][col] == '0'){
+                //not occupied so we can move there
+                string downDown = column[col] + to_string(rank[row+2]);
+                string possibleMove = boardPosition + downDown;
+                possibleMoves.push_back(possibleMove);
+            }
+
+            else{
+                //check if the piece is opponent:
+                char belowPiece = board[row+2][col];
+
+                bool ourColour = isupper(e);
+                bool otherColour = isupper(belowPiece);
+
+                if(ourColour ^ otherColour){
+                    //we can move there
+                    string downDown = column[col] + to_string(rank[row+2]);
+                    string possibleMove = boardPosition + downDown;
+                    possibleMoves.push_back(possibleMove);
+                }
+            }
+        }
+    }
+
+    //case 3: right or right right:
+    if(col < 6){
+        //sub case 1: right
+
+        //check if piece is occupied:
+        if(board[row][col+1] == '0'){
+            //not occupied so we can move there
+            string right = column[col+1] + to_string(rank[row]);
+            string possibleMove = boardPosition + right;
+            possibleMoves.push_back(possibleMove);
+        }
+
+        else{
+            //check if the piece is opponent:
+            char rightPiece = board[row][col+1];
+
+            bool ourColour = isupper(e);
+            bool otherColour = isupper(rightPiece);
+
+            if(ourColour != otherColour){
+                //we can move there
+                string right = column[col+1] + to_string(rank[row]);
+                string possibleMove = boardPosition + right;
+                possibleMoves.push_back(possibleMove);
+            }
+        }
+
+        //sub case 2: up up:
+        if(col < 5){
+
+            //check if piece is occupied:
+            if(board[row][col+2] == '0'){
+                //not occupied so we can move there
+                string rightRight = column[col+2] + to_string(rank[row]);
+                string possibleMove = boardPosition + rightRight;
+                possibleMoves.push_back(possibleMove);
+            }
+
+            else{
+                //check if the piece is opponent:
+                char rightRightPiece = board[row][col+2];
+
+                bool ourColour = isupper(e);
+                bool otherColour = isupper(rightRightPiece);
+
+                if(ourColour ^ otherColour){
+                    //we can move there
+                    string rightRight = column[col+2] + to_string(rank[row]);
+                    string possibleMove = boardPosition + rightRight;
+                    possibleMoves.push_back(possibleMove);
+                }
+            }
+        }
+    }
+
+    //case 4: left left:
+    if(col > 0){
+
+        //sub case 1: left
+
+        //check if piece is occupied:
+        if(board[row][col-1] == '0'){
+            //not occupied so we can move there
+            string left = column[col-1] + to_string(rank[row]);
+            string possibleMove = boardPosition + left;
+            possibleMoves.push_back(possibleMove);
+        }
+
+        else{
+            //check if the piece is opponent:
+            char leftPiece = board[row][col-1];
+
+            bool ourColour = isupper(e);
+            bool otherColour = isupper(leftPiece);
+
+            if(ourColour ^ otherColour){
+                //we can move there
+                string right = column[col-1] + to_string(rank[row]);
+                string possibleMove = boardPosition + right;
+                possibleMoves.push_back(possibleMove);
+            }
+        }
+        
+        //sub case 2: left left:
+        if(col > 1){
+            //check if piece is occupied:
+            if(board[row][col-2] == '0'){
+                //not occupied so we can move there
+                string leftLeft = column[col-2] + to_string(rank[row]);
+                string possibleMove = boardPosition + leftLeft;
+                possibleMoves.push_back(possibleMove);
+            }
+
+            else{
+                //check if the piece is opponent:
+                char leftLeftPiece = board[row][col-2];
+
+                bool ourColour = isupper(e);
+                bool otherColour = isupper(leftLeftPiece);
+
+                if(ourColour ^ otherColour){
+                    //we can move there
+                    string leftLeft = column[col-2] + to_string(rank[row]);
+                    string possibleMove = boardPosition + leftLeft;
+                    possibleMoves.push_back(possibleMove);
+                }
+            }
+        }
+    }
+    
     sort(possibleMoves.begin(), possibleMoves.end());
     return possibleMoves;
+}
+
+vector<string> allPossibleMovesVector(vector<vector<char> > board, char piece){
+
+    vector<string> allPossibleMoves;
+
+    for(int row = 0; row < 7; row++){
+        for(int col = 0; col < 7; col++){
+
+            if(board[row][col] == piece){
+                vector<string> theseMoves = possibleElephantMoves(board, piece, row, col);
+
+               // printVector(theseMoves);
+                for(string s : theseMoves){
+                    allPossibleMoves.push_back(s);
+                }
+            }
+        }
+    }
+
+    sort(allPossibleMoves.begin(), allPossibleMoves.end());
+    return allPossibleMoves;
+
 }
 
 void print2DVector(vector<vector<char> > my2DArray, int height, int width){
@@ -207,20 +420,13 @@ int main(){
        // cout << l << endl;
 
         if(l == 'b'){
-            vector<string> zebraMoves = possibleElephantMoves(thisBoard, char(122));
-           // cout << zebraMoves.size() << endl;
-
-           // printVector(zebraMoves);
-           // cout << endl;
-            allPossibleMoves.push_back( zebraMoves );
-
+            vector<string> theseMoves = allPossibleMovesVector(thisBoard, 'e');
+            allPossibleMoves.push_back(theseMoves);
         }
 
         if(l == 'w'){
-            vector<string> zebraMoves = possibleElephantMoves(thisBoard, char(90));
-            //printVector(zebraMoves);
-          //  cout << endl;
-            allPossibleMoves.push_back( zebraMoves );
+           vector<string> theseMoves = allPossibleMovesVector(thisBoard, 'E');
+            allPossibleMoves.push_back(theseMoves);
         }
     }
 
@@ -228,4 +434,6 @@ int main(){
     for(vector<string> v : allPossibleMoves){
         printVector(v);
     }
+
+    
 }
