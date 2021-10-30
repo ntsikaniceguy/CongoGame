@@ -121,7 +121,6 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
     vector<int> rank = {7, 6, 5, 4, 3, 2, 1};
     vector<string> possibleMoves;
 
-
     string ourColour;
     string opponentColour;
 
