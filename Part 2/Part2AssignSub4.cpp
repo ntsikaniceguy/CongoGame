@@ -153,7 +153,6 @@ vector<vector<char>> makeBoard(vector<string> boardSetup){
     }
 
     return board;
-
 }
 
 vector<string> possiblePawnMoves(vector<vector<char>> board, char e, int row, int col){
@@ -418,7 +417,7 @@ int main(){
 
         //this creates the 2D char vector of the board
         vector<vector<char> > thisBoard = makeBoard(boardSetup);
-        // print2DVector(thisBoard, 7, 7);
+        print2DVector(thisBoard, 7, 7);
         // cout << endl;
 
         //this gets the colour's turn

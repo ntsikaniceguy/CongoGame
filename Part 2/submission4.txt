@@ -798,3 +798,4 @@ a6a4 a6a5 a6a7 a6b7 d3c4 d3d4 d3e4 f6e7 f6f4 f6f5 f6f7 f6g7
 b5a6 b5b6 b5c6 c2b3 c2c3 c2d3 e6d7 e6e7 e6f7 f2e3 f2f3 f2g3 f6e7 f6f4 f6f5 f6f7 f6g7
 d3c4 d3d4 e3d4 e3f4 e4d5 e4e5 e4f5
 b5a6 b5b3 b5b4 b5b6 b5c6 d4c5 d4d5 d4e5
+a2a3 a2b3 b2a3 b2b3 b2c3 c2b3 c2c3 c2d3 e2d3 e2e3 e2f3 f2e3 f2f3 f2g3 g2f3 g2g3
