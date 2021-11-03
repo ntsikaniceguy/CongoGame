@@ -252,18 +252,29 @@ int evaluateBoard(vector<vector<char>> board, char colour){
     }
 
     //case 2: black or white wins:
-    if(myMap['L'] == 0){
-        return -10000;
-    }
-    
-    if(myMap['l'] == 0){
-        return 10000;
-    }
+    if(myMap['l'] == 0 ^ myMap['L'] == 0){
 
-    if(myMap['l'] == 0 && myMap['L'] == 0){
-        return 0;
-    }
+        //white wins
+        if(myMap['l'] == 0){
+            if(colour == 'b'){
+                return -10000;
+            }
+            else if(colour == 'w'){
+                return 10000;
+            }
+        }
 
+        //black wins
+        if(myMap['L'] == 0){
+
+            if(colour == 'b'){
+                return 10000;
+            }
+            else if(colour == 'w'){
+                return -10000;
+            }
+        }
+    }
     //case 3: evaluate the board:
     int blackPieces = 100*myMap['p'] + 200*myMap['e'] + 300*myMap['z'];
     int whitePieces = 100*myMap['P'] + 200*myMap['E'] + 300*myMap['Z'];

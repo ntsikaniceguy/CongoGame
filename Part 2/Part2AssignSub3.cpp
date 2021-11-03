@@ -18,14 +18,6 @@ using std::istringstream;
 using namespace std::chrono;
 using namespace std;
 
-void printVector(vector<string> v){
-
-    for(string s : v){
-        cout << s << " ";
-    }
-    cout << endl;
-}
-
 vector<string> tokenize(string s, string del = "/"){
 
     vector<string> row;
@@ -115,6 +107,12 @@ vector<vector<char>> makeBoard(vector<string> boardSetup){
 
 }
 
+static std::string removeSpaces(std::string str)
+{
+	str.erase(remove(str.begin(), str.end(), ' '), str.end());
+	return str;
+}
+
 vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row, int col){
 
     vector<string> column = {"a", "b", "c", "d", "e", "f", "g"};
@@ -136,6 +134,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
             //not occupied so we can move there
             string up = column[col] + to_string(rank[row-1]);
             string possibleMove = boardPosition + up;
+            removeSpaces(possibleMove);
             possibleMoves.push_back(possibleMove);
         }
 
@@ -150,6 +149,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //we can move there
                 string up = column[col] + to_string(rank[row-1]);
                 string possibleMove = boardPosition + up;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
         }
@@ -162,6 +162,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //not occupied so we can move there
                 string upUp = column[col] + to_string(rank[row-2]);
                 string possibleMove = boardPosition + upUp;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
 
@@ -176,6 +177,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                     //we can move there
                     string up = column[col] + to_string(rank[row-2]);
                     string possibleMove = boardPosition + up;
+                    removeSpaces(possibleMove);
                     possibleMoves.push_back(possibleMove);
                 }
             }
@@ -192,6 +194,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
             //not occupied so we can move there
             string up = column[col] + to_string(rank[row+1]);
             string possibleMove = boardPosition + up;
+            removeSpaces(possibleMove);
             possibleMoves.push_back(possibleMove);
         }
 
@@ -206,6 +209,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //we can move there
                 string down = column[col] + to_string(rank[row+1]);
                 string possibleMove = boardPosition + down;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
         }
@@ -218,6 +222,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //not occupied so we can move there
                 string downDown = column[col] + to_string(rank[row+2]);
                 string possibleMove = boardPosition + downDown;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
 
@@ -232,6 +237,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                     //we can move there
                     string downDown = column[col] + to_string(rank[row+2]);
                     string possibleMove = boardPosition + downDown;
+                    removeSpaces(possibleMove);
                     possibleMoves.push_back(possibleMove);
                 }
             }
@@ -247,6 +253,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
             //not occupied so we can move there
             string right = column[col+1] + to_string(rank[row]);
             string possibleMove = boardPosition + right;
+            removeSpaces(possibleMove);
             possibleMoves.push_back(possibleMove);
         }
 
@@ -261,6 +268,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //we can move there
                 string right = column[col+1] + to_string(rank[row]);
                 string possibleMove = boardPosition + right;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
         }
@@ -273,6 +281,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //not occupied so we can move there
                 string rightRight = column[col+2] + to_string(rank[row]);
                 string possibleMove = boardPosition + rightRight;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
 
@@ -287,6 +296,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                     //we can move there
                     string rightRight = column[col+2] + to_string(rank[row]);
                     string possibleMove = boardPosition + rightRight;
+                    removeSpaces(possibleMove);
                     possibleMoves.push_back(possibleMove);
                 }
             }
@@ -303,6 +313,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
             //not occupied so we can move there
             string left = column[col-1] + to_string(rank[row]);
             string possibleMove = boardPosition + left;
+            removeSpaces(possibleMove);
             possibleMoves.push_back(possibleMove);
         }
 
@@ -317,6 +328,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //we can move there
                 string right = column[col-1] + to_string(rank[row]);
                 string possibleMove = boardPosition + right;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
         }
@@ -328,6 +340,7 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                 //not occupied so we can move there
                 string leftLeft = column[col-2] + to_string(rank[row]);
                 string possibleMove = boardPosition + leftLeft;
+                removeSpaces(possibleMove);
                 possibleMoves.push_back(possibleMove);
             }
 
@@ -342,14 +355,68 @@ vector<string> possibleElephantMoves(vector<vector<char>> board, char e, int row
                     //we can move there
                     string leftLeft = column[col-2] + to_string(rank[row]);
                     string possibleMove = boardPosition + leftLeft;
+                    removeSpaces(possibleMove);
                     possibleMoves.push_back(possibleMove);
                 }
             }
         }
     }
     
-    sort(possibleMoves.begin(), possibleMoves.end());
+    //sort(possibleMoves.begin(), possibleMoves.end());
     return possibleMoves;
+}
+
+void printVector(vector<string> v){
+
+    if(v.size() == 0){
+        return;
+    }
+
+    if(v.size() == 1){
+        cout << v[0] << endl;
+    }
+
+    if(v.size() == 2){
+        cout << v[0] << " " << v[1] << endl;
+    }
+
+    else if(v.size() > 2){
+
+        cout << v[0];
+
+        for(int i = 1; i < v.size() - 1; i++){
+            cout << " " << v[i];
+        }
+
+        cout << " " << v[v.size()-1] << endl;
+    }
+}
+
+void vectorToFile(vector<string> v){
+
+    fstream myfile;
+    myfile.open("Part2Sub3.txt", fstream::app);
+
+    if(v.size() == 1){
+        myfile << v[0] << endl;
+    }
+
+    if(v.size() == 2){
+        myfile << v[0] << " " << v[1] << endl;
+    }
+
+    else if(v.size() > 2){
+
+        myfile << v[0];
+
+        for(int i = 1; i < v.size() - 1; i++){
+            myfile << " " << v[i];
+        }
+        
+        myfile << " " << v[v.size()-1] << endl;
+    }
+
+    myfile.close();
 }
 
 vector<string> allPossibleMovesVector(vector<vector<char> > board, char piece){
@@ -431,6 +498,7 @@ int main(){
 
     //output all the possible moves for each input
     for(vector<string> v : allPossibleMoves){
+        vectorToFile(v);
         printVector(v);
     }
 
